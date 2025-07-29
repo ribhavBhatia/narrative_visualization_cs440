@@ -159,8 +159,29 @@ function renderScene2() {
         .attr("cy", d => y(d.AverageHighwayMPG))
         .attr("r", 5)
         .attr("fill", d => color(d.Fuel))
-        .attr("opacity", 0.7);
-    
+        .attr("opacity", 0.7)
+        .attr("stroke", "black")               
+        .attr("stroke-width", 1)
+        .on("mouseover", function(event, d) {
+            tooltip
+              .style("display", "block")
+              .html(`
+                <strong>${d.Make}</strong><br/>
+                Fuel: ${d.Fuel}<br/>
+                Cylinders: ${d.EngineCylinders}<br/>
+                Hwy MPG: ${d.AverageHighwayMPG}
+              `);
+            d3.select(this).attr("stroke-width", 2);
+          })
+          .on("mousemove", event => {
+            tooltip
+              .style("left", (event.pageX + 10) + "px")
+              .style("top", (event.pageY - 20) + "px");
+          })
+          .on("mouseout", function() {
+            tooltip.style("display", "none");
+            d3.select(this).attr("stroke-width", 1);
+          });
     /*
     group.append("text")
         .attr("x", 150)
@@ -180,4 +201,12 @@ window.addEventListener("DOMContentLoaded", () => {
       else if (state.scene === 3) renderScene3(); // if you have this later
       else console.log("Scene", state.scene);
     });
+
+    document.getElementById("back").addEventListener("click", () => {
+        state.scene -= 1;
+    
+        if (state.scene === 1) renderScene1();
+        else if (state.scene === 2) renderScene2(); 
+        else console.log("Scene", state.scene);
+      });
 });
