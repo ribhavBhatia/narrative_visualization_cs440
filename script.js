@@ -57,7 +57,7 @@ function renderScene1() {
       .range([innerHeight, 0]);
   
     
-      // Creating axes
+    // Creating axes
     group.append("g").call(d3.axisLeft(y));
   
     group.append("g")
@@ -93,7 +93,6 @@ function renderScene1() {
       .attr("height", d => innerHeight - y(d[1]))
       .attr("fill", "steelblue");
   
-    
     group.append("text")
       .attr("x", 150)
       .attr("y", -10)
@@ -101,3 +100,72 @@ function renderScene1() {
       .text("Electric vehicles have the highest average highway MPG");
     
   }
+
+
+function renderScene2() {
+    svg.selectAll("*").remove(); // clear SVG
+
+    d3.select("#scene-title").text("MPG vs Engine Cylinders"); // update title
+
+    var group = svg.append("g")
+        .attr("transform", "translate("+80+","+50+")");
+    
+    var x = d3.scaleLinear()
+        .domain(d3.extent(state.data, d => d.EngineCylinders))
+        .range([0, innerWidth])
+        .nice();
+  
+    var y = d3.scaleLinear()
+        .domain(d3.extent(state.data, d => d.AverageHighwayMPG))
+        .range([innerHeight, 0])
+        .nice();
+    
+    var color = d3.scaleOrdinal()
+        .domain(["Gasoline", "Diesel", "Electricity"])
+        .range(["#1f77b4", "#ff7f0e", "#2ca02c"]);
+
+    // Creating axes
+    group.append("g").call(d3.axisLeft(y));
+  
+    group.append("g")
+      .attr("transform", `translate(0, ${innerHeight})`)
+      .call(d3.axisBottom(x));
+    
+
+    // Y-axis label
+    group.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("x", -innerHeight / 2)
+        .attr("y", -50)
+        .attr("text-anchor", "middle")
+        .attr("class", "axis-label")
+        .text("Average Highway MPG");
+    
+    // X-axis label
+    group.append("text")
+        .attr("x", innerWidth / 2)
+        .attr("y", innerHeight + 40)
+        .attr("text-anchor", "middle")
+        .attr("class", "axis-label")
+        .text("Engine Cylinders");
+
+    // The circles for the Scatter Plot
+    group.selectAll("circle")
+        .data(state.data)
+        .enter()
+        .append("circle")
+        .attr("cx", d => x(d.EngineCylinders))
+        .attr("cy", d => y(d.AverageHighwayMPG))
+        .attr("r", 5)
+        .attr("fill", d => color(d.Fuel))
+        .attr("opacity", 0.7);
+    
+    /*
+    group.append("text")
+        .attr("x", 150)
+        .attr("y", -10)
+        .attr("class", "annotation")
+        .text("Electric vehicles have the highest average highway MPG");
+    */
+
+}
