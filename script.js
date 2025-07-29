@@ -115,7 +115,7 @@ function renderScene2() {
         .attr("transform", "translate("+80+","+50+")");
     
     var x = d3.scaleLinear()
-        .domain(d3.extent(state.data, d => d.EngineCylinders))
+        .domain(d3.extent(state.data, d => d.AverageCityMPG))
         .range([0, innerWidth])
         .nice();
   
@@ -152,14 +152,14 @@ function renderScene2() {
         .attr("y", innerHeight + 40)
         .attr("text-anchor", "middle")
         .attr("class", "axis-label")
-        .text("Engine Cylinders");
+        .text("Average City MPG");
 
     // The circles for the Scatter Plot
     group.selectAll("circle")
         .data(state.data)
         .enter()
         .append("circle")
-        .attr("cx", d => x(d.EngineCylinders))
+        .attr("cx", d => x(d.AverageCityMPG))
         .attr("fill", d => color(d.Fuel))
         .attr("opacity", 0.7)
         .attr("stroke", "black")               
@@ -185,7 +185,8 @@ function renderScene2() {
             d3.select(this).attr("stroke-width", 1);
           })
         .transition()
-        .duration(3000)
+        .duration(1000)
+        .delay(200)
         .attr("cy", d => y(d.AverageHighwayMPG))
         .attr("r", 5);
     
