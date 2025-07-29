@@ -75,12 +75,11 @@ function renderScene1() {
       .attr("height", d => innerHeight - y(d[1]))
       .attr("fill", "steelblue");
   
-    // Optional annotation
-    /*
+    
     group.append("text")
       .attr("x", 0)
       .attr("y", -10)
       .attr("class", "annotation")
       .text("Electric vehicles have the highest average highway MPG");
-    */
+    
   }
