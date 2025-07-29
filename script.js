@@ -171,8 +171,12 @@ function renderScene2() {
 }
 
 
-document.getElementById("next").addEventListener("click", () => {
-    state.scene += 1;
-    if (state.scene === 2) renderScene2();
-    else if (state.scene === 3) renderScene3(); // future
-  });
+window.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("next").addEventListener("click", () => {
+      state.scene += 1;
+  
+      if (state.scene === 2) renderScene2();
+      else if (state.scene === 3) renderScene3(); // if you have this later
+      else console.log("Scene", state.scene);
+    });
+});
