@@ -160,8 +160,6 @@ function renderScene2() {
         .enter()
         .append("circle")
         .attr("cx", d => x(d.EngineCylinders))
-        .attr("cy", d => y(d.AverageHighwayMPG))
-        .attr("r", 5)
         .attr("fill", d => color(d.Fuel))
         .attr("opacity", 0.7)
         .attr("stroke", "black")               
@@ -185,14 +183,18 @@ function renderScene2() {
           .on("mouseout", function() {
             tooltip.style("display", "none");
             d3.select(this).attr("stroke-width", 1);
-          });
-    /*
+          })
+        .transition()
+        .duration(3000)
+        .attr("cy", d => y(d.AverageHighwayMPG))
+        .attr("r", 5);
+    
     group.append("text")
         .attr("x", 150)
         .attr("y", -10)
         .attr("class", "annotation")
-        .text("Electric vehicles have the highest average highway MPG");
-    */
+        .text("As the number of Engine Cylinders increases the Average MPG decreases");
+
 
 }
 
