@@ -63,7 +63,25 @@ function renderScene1() {
     group.append("g")
       .attr("transform", `translate(0, ${innerHeight})`)
       .call(d3.axisBottom(x));
-  
+    
+
+    // Y-axis label
+    group.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("x", -innerHeight / 2)
+        .attr("y", -50)
+        .attr("text-anchor", "middle")
+        .attr("class", "axis-label")
+        .text("Average Highway MPG");
+    
+    // X-axis label
+    group.append("text")
+        .attr("x", innerWidth / 2)
+        .attr("y", innerHeight + 40)
+        .attr("text-anchor", "middle")
+        .attr("class", "axis-label")
+        .text("Fuel Type");
+
     // draw the bars
     group.selectAll("rect")
       .data([...mpgByFuel])
@@ -77,7 +95,7 @@ function renderScene1() {
   
     
     group.append("text")
-      .attr("x", 0)
+      .attr("x", 50)
       .attr("y", -10)
       .attr("class", "annotation")
       .text("Electric vehicles have the highest average highway MPG");

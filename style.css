@@ -11,5 +11,10 @@ body {
   }
   .annotation {
     font-weight: bold;
-    fill: red;
+    fill: blueviolet;
+  }
+  .axis-label {
+    font-size: 14px;
+    font-weight: bold;
+    fill: #333;
   }
