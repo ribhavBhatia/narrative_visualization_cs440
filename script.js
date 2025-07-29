@@ -103,6 +103,7 @@ function renderScene1() {
 
 
 function renderScene2() {
+    console.log("Rendering Scene 2...");
     svg.selectAll("*").remove(); // clear SVG
 
     d3.select("#scene-title").text("MPG vs Engine Cylinders"); // update title
