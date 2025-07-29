@@ -10,6 +10,7 @@ body {
     margin-top: 20px;
   }
   .annotation {
+    font-size: 14px;
     font-weight: bold;
     fill: blueviolet;
   }

@@ -95,7 +95,7 @@ function renderScene1() {
   
     
     group.append("text")
-      .attr("x", 50)
+      .attr("x", 150)
       .attr("y", -10)
       .attr("class", "annotation")
       .text("Electric vehicles have the highest average highway MPG");
