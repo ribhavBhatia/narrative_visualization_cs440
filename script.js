@@ -169,3 +169,10 @@ function renderScene2() {
     */
 
 }
+
+
+document.getElementById("next").addEventListener("click", () => {
+    state.scene += 1;
+    if (state.scene === 2) renderScene2();
+    else if (state.scene === 3) renderScene3(); // future
+  });
