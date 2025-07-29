@@ -1,0 +1,86 @@
+var svg = d3.select("svg");                         // Select the <svg> element from index.html
+var width = 800;                                    // Width of SVG canvas (matches viewBox)
+var height = 500;                                   // Height of SVG canvas
+var margin = { top: 50, right: 50, bottom: 50, left: 80 }; // Space around chart edges
+var innerWidth = width - margin.left - margin.right;    
+var innerHeight = height - margin.top - margin.bottom;
+
+
+// Global state to track scene and store data -- Not sure what it is used for yet
+let state = {
+    scene: 1,
+    data: [],
+    selectedMake: null
+  };
+
+
+d3.csv("cars_2017.csv").then(function(data) {
+    // Convert strings to numbers for relevant fields
+    data.forEach(d => {
+        d.EngineCylinders = +d.EngineCylinders;       
+        d.AverageHighwayMPG = +d.AverageHighwayMPG;
+        d.AverageCityMPG = +d.AverageCityMPG;
+    });
+  
+    state.data = data;      // Store cleaned data in state
+    renderScene1();         // Start with the first scene
+});
+
+
+function renderScene1() {
+    // Clear anything currently in the SVG
+    svg.selectAll("*").remove();
+  
+    // Create a group for the chart area with margins applied
+    var group = svg.append("g")
+      .attr("transform", "translate("+80+","+50+")");
+  
+    // Group data by Fuel and calculate average highway MPG
+    var mpgByFuel = d3.rollup(
+      state.data,
+      v => d3.mean(v, d => d.AverageHighwayMPG),
+      d => d.Fuel
+    );
+  
+    var fuels = Array.from(mpgByFuel.keys());
+    var values = Array.from(mpgByFuel.values());
+  
+    // Creating the scales for the bar chart
+    var x = d3.scaleBand()
+      .domain(fuels)
+      .range([0, innerWidth])
+      .padding(0.2);            //Used to seperate space between the axis and the data
+  
+    var y = d3.scaleLinear()
+      .domain([0, d3.max(values)])
+      .nice()                   //used to round up the axis numbers
+      .range([innerHeight, 0]);
+  
+    
+      // Creating axes
+    group.append("g").call(d3.axisLeft(y));
+  
+    group.append("g")
+      .attr("transform", `translate(0, ${innerHeight})`)
+      .call(d3.axisBottom(x));
+  
+    // draw the bars
+    group.selectAll("rect")
+      .data([...mpgByFuel])
+      .enter()
+      .append("rect")
+      .attr("x", d => x(d[0]))
+      .attr("y", d => y(d[1]))
+      .attr("width", x.bandwidth())
+      .attr("height", d => innerHeight - y(d[1]))
+      .attr("fill", "steelblue");
+  
+    // Optional annotation
+    /*
+    group.append("text")
+      .attr("x", 0)
+      .attr("y", -10)
+      .attr("class", "annotation")
+      .text("Electric vehicles have the highest average highway MPG");
+    */
+  }

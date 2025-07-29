@@ -1,0 +1,15 @@
+body {
+    font-family: sans-serif;
+    margin: 40px;
+  }
+  #container {
+    text-align: center;
+  }
+  svg {
+    border: 1px solid #ccc;
+    margin-top: 20px;
+  }
+  .annotation {
+    font-weight: bold;
+    fill: red;
+  }
