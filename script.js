@@ -31,6 +31,8 @@ function renderScene1() {
     // Clear anything currently in the SVG
     svg.selectAll("*").remove();
   
+    d3.select("#scene-title").text("MPG vs Fuel Type"); // update title
+
     // Create a group for the chart area with margins applied
     var group = svg.append("g")
       .attr("transform", "translate("+80+","+50+")");
@@ -125,6 +127,7 @@ function renderScene2() {
         .domain(["Gasoline", "Diesel", "Electricity"])
         .range(["#1f77b4", "#ff7f0e", "#2ca02c"]);
 
+    var tooltip = d3.select("#tooltip");
     // Creating axes
     group.append("g").call(d3.axisLeft(y));
   
