@@ -29,6 +29,7 @@ d3.csv("cars_2017.csv").then(function(data) {
 
 function renderScene1() {
     // Clear anything currently in the SVG
+    console.log("Rendering Scene 1...");
     svg.selectAll("*").remove();
   
     d3.select("#scene-title").text("MPG vs Fuel Type"); // update title
