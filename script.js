@@ -171,7 +171,8 @@ function renderScene2() {
                 <strong>${d.Make}</strong><br/>
                 Fuel: ${d.Fuel}<br/>
                 Cylinders: ${d.EngineCylinders}<br/>
-                Hwy MPG: ${d.AverageHighwayMPG}
+                Hwy MPG: ${d.AverageHighwayMPG}<br/>
+                Cty MPG: ${d.AverageCityMPG}
               `);
             d3.select(this).attr("stroke-width", 2);
           })
@@ -191,10 +192,10 @@ function renderScene2() {
         .attr("r", 5);
     
     group.append("text")
-        .attr("x", 150)
+        .attr("x", 130)
         .attr("y", -10)
         .attr("class", "annotation")
-        .text("As the number of Engine Cylinders increases the Average MPG decreases");
+        .text("Electric Cars typically have higher MPG's");
 
 
 }
@@ -219,7 +220,7 @@ function renderScene3() {
         .nice();
   
     var y = d3.scaleLinear()
-        .domain(d3.extent(state.data, d => d.AverageHighwayMPG))
+        .domain(d3.extent(state.data, d => d.AverageCityMPG))
         .range([innerHeight, 0])
         .nice();
     
@@ -244,7 +245,7 @@ function renderScene3() {
         .attr("y", -50)
         .attr("text-anchor", "middle")
         .attr("class", "axis-label")
-        .text("Average Highway MPG");
+        .text("Average City MPG");
     
     // X-axis label
     group.append("text")
@@ -266,7 +267,7 @@ function renderScene3() {
         var filtered = state.data.filter(d => d.Make === selectedMake);
     
         var create = group.selectAll("circle")
-            .data(filtered, d => d.Make + d.EngineCylinders + d.AverageCityMPG)
+            .data(filtered, d => d.Make + d.EngineCylinders + d.AverageHighwayMPG +d.AverageCityMPG)
         create.exit().remove()
         create.enter()
             .append("circle")
@@ -282,7 +283,8 @@ function renderScene3() {
                     <strong>${d.Make}</strong><br/>
                     Fuel: ${d.Fuel}<br/>
                     Cylinders: ${d.EngineCylinders}<br/>
-                    Hwy MPG: ${d.AverageHighwayMPG}
+                    Hwy MPG: ${d.AverageHighwayMPG}<br/>
+                    Cty MPG: ${d.AverageCityMPG}
                 `);
                 d3.select(this).attr("stroke-width", 2);
             })
@@ -298,7 +300,7 @@ function renderScene3() {
             .transition()
             .duration(1000)
             .delay(200)
-            .attr("cy", d => y(d.AverageHighwayMPG))
+            .attr("cy", d => y(d.AverageCityMPG))
             .attr("r", 5);
         create.exit().remove()
             
@@ -311,7 +313,11 @@ function renderScene3() {
         updateScatter(this.value);
     });
     
-
+    group.append("text")
+    .attr("x", 150)
+    .attr("y", -10)
+    .attr("class", "annotation")
+    .text("As the number of Cylinders increases the City MPG decreases");
 
 }
 
