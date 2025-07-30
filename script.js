@@ -265,9 +265,8 @@ function renderScene3() {
     function updateScatter(selectedMake) {
         var filtered = state.data.filter(d => d.Make === selectedMake);
     
-        group.selectAll("circle")
+        var create = group.selectAll("circle")
             .data(filtered, d => d.Make + d.EngineCylinders + d.AverageCityMPG)
-            .exit().remove()
             .enter()
             .append("circle")
             .attr("cx", d => x(d.EngineCylinders))
@@ -300,7 +299,7 @@ function renderScene3() {
             .delay(200)
             .attr("cy", d => y(d.AverageHighwayMPG))
             .attr("r", 5);
-
+        create.exit().remove()
             
 
     }
