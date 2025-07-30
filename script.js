@@ -192,7 +192,7 @@ function renderScene2() {
         .attr("r", 5);
     
     group.append("text")
-        .attr("x", 130)
+        .attr("x", 150)
         .attr("y", -10)
         .attr("class", "annotation")
         .text("Electric Cars typically have higher MPG's");
