@@ -267,7 +267,8 @@ function renderScene3() {
     
         var create = group.selectAll("circle")
             .data(filtered, d => d.Make + d.EngineCylinders + d.AverageCityMPG)
-            .enter()
+        create.exit().remove()
+        create.enter()
             .append("circle")
             .attr("cx", d => x(d.EngineCylinders))
             .attr("fill", d => color(d.Fuel))
