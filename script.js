@@ -267,6 +267,7 @@ function renderScene3() {
     
         group.selectAll("circle")
             .data(filtered, d => d.Make + d.EngineCylinders + d.AverageCityMPG)
+            .exit().remove()
             .enter()
             .append("circle")
             .attr("cx", d => x(d.EngineCylinders))
@@ -299,7 +300,9 @@ function renderScene3() {
             .delay(200)
             .attr("cy", d => y(d.AverageHighwayMPG))
             .attr("r", 5);
-            exit().remove();
+
+            
+
     }
 
     updateScatter(makes[0]);
