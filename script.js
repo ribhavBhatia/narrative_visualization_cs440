@@ -200,6 +200,119 @@ function renderScene2() {
 }
 
 
+
+function renderScene3() {
+
+    console.log("Rendering Scene 3...");
+    svg.selectAll("*").remove(); // clear SVG
+
+    d3.select("#scene-title").text("City MPG vs Engine Cylinders by Make");
+
+    d3.select("#make-select").style("display", "inline");
+
+    var group = svg.append("g")
+        .attr("transform", "translate("+80+","+50+")");
+    
+    var x = d3.scaleLinear()
+        .domain(d3.extent(state.data, d => d.EngineCylinders))
+        .range([0, innerWidth])
+        .nice();
+  
+    var y = d3.scaleLinear()
+        .domain(d3.extent(state.data, d => d.AverageHighwayMPG))
+        .range([innerHeight, 0])
+        .nice();
+    
+    var color = d3.scaleOrdinal()
+        .domain(["Gasoline", "Diesel", "Electricity"])
+        .range(["#1f77b4", "#ff7f0e", "#2ca02c"]);
+
+    var tooltip = d3.select("#tooltip");
+
+    // Creating axes
+    group.append("g").call(d3.axisLeft(y));
+  
+    group.append("g")
+      .attr("transform", `translate(0, ${innerHeight})`)
+      .call(d3.axisBottom(x));
+    
+
+    // Y-axis label
+    group.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("x", -innerHeight / 2)
+        .attr("y", -50)
+        .attr("text-anchor", "middle")
+        .attr("class", "axis-label")
+        .text("Average Highway MPG");
+    
+    // X-axis label
+    group.append("text")
+        .attr("x", innerWidth / 2)
+        .attr("y", innerHeight + 40)
+        .attr("text-anchor", "middle")
+        .attr("class", "axis-label")
+        .text("Engine Cylinders");
+
+    var makes = Array.from(new Set(state.data.map(d => d.Make))).sort();
+    var select = d3.select("#make-select");
+    
+    select.selectAll("option").remove();
+    makes.forEach(make => {
+        select.append("option").text(make).attr("value", make);
+    });
+
+    function updateScatter(selectedMake) {
+        var filtered = state.data.filter(d => d.Make === selectedMake);
+    
+        group.selectAll("circle")
+            .data(filtered, d => d.Make + d.EngineCylinders + d.AverageCityMPG)
+            .enter()
+            .append("circle")
+            .attr("cx", d => x(d.EngineCylinders))
+            .attr("fill", d => color(d.Fuel))
+            .attr("opacity", 0.7)
+            .attr("stroke", "black")               
+            .attr("stroke-width", 1)
+            .on("mouseover", function(event, d) {
+                tooltip
+                .style("display", "block")
+                .html(`
+                    <strong>${d.Make}</strong><br/>
+                    Fuel: ${d.Fuel}<br/>
+                    Cylinders: ${d.EngineCylinders}<br/>
+                    Hwy MPG: ${d.AverageHighwayMPG}
+                `);
+                d3.select(this).attr("stroke-width", 2);
+            })
+            .on("mousemove", event => {
+                tooltip
+                .style("left", (event.pageX + 10) + "px")
+                .style("top", (event.pageY - 20) + "px");
+            })
+            .on("mouseout", function() {
+                tooltip.style("display", "none");
+                d3.select(this).attr("stroke-width", 1);
+            })
+            .transition()
+            .duration(1000)
+            .delay(200)
+            .attr("cy", d => y(d.AverageHighwayMPG))
+            .attr("r", 5);
+            exit().remove();
+    }
+
+    updateScatter(makes[0]);
+
+    select.on("change", function() {
+        updateScatter(this.value);
+    });
+    
+
+
+}
+
+
 window.addEventListener("DOMContentLoaded", () => {
     document.getElementById("next").addEventListener("click", () => {
       state.scene += 1;
@@ -212,6 +325,8 @@ window.addEventListener("DOMContentLoaded", () => {
     document.getElementById("back").addEventListener("click", () => {
         state.scene -= 1;
     
+        if (state.scene !== 3) d3.select("#make-select").style("display", "none");
+
         if (state.scene === 1) renderScene1();
         else if (state.scene === 2) renderScene2(); 
         else console.log("Scene", state.scene);
