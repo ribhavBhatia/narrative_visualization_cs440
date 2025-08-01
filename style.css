@@ -43,13 +43,14 @@ body {
     margin: 10px;
     border-radius: 6px;
     border: 1px solid #ccc;
-    background-color: white;
+    background-color: blue;
+    color: white;
     cursor: pointer;
     transition: border-color 0.3s;
   }
   
   select:hover {
-    border-color: #007BFF;
+    border-color:  #003e81;
   }
 
   
