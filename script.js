@@ -91,13 +91,13 @@ function renderScene1() {
       .enter()
       .append("rect")
       .attr("x", d => x(d[0]))
-      .attr("y", d => y(d[1]))
       .attr("width", x.bandwidth())
       .attr("fill", "steelblue")
       .transition()
-      .duration(1000)
-      .delay(200)
-      .attr("height", d => innerHeight - y(d[1]));
+      .duration(3000)
+      .delay(1000)
+      .attr("height", d => innerHeight - y(d[1]))
+      .attr("y", d => y(d[1]));
     
     group.append("text")
       .attr("x", 150)
