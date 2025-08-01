@@ -43,8 +43,7 @@ body {
     margin: 10px;
     border-radius: 6px;
     border: 1px solid #ccc;
-    background-color: blue;
-    color: white;
+    background-color: white;
     cursor: pointer;
     transition: border-color 0.3s;
     appearance: none;
