@@ -134,7 +134,7 @@ function renderScene2() {
 
     var legend = svg.append("g")
         .attr("class", "legend")
-        .attr("transform", `translate(${width}, ${height})`);
+        .attr("transform", `translate(${width}, ${0})`);
     
     var tooltip = d3.select("#tooltip");
     // Creating axes
@@ -261,7 +261,7 @@ function renderScene3() {
     
     var legend = svg.append("g")
         .attr("class", "legend")
-        .attr("transform", `translate(${width}, ${height})`);
+        .attr("transform", `translate(${width}, ${0})`);
     
     var tooltip = d3.select("#tooltip");
 
