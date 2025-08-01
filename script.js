@@ -195,7 +195,7 @@ function renderScene2() {
         .attr("cy", d => y(d.AverageHighwayMPG))
         .attr("r", 5);
     
-    const fuels = color.domain();
+    var fuels = color.domain();
 
     legend.selectAll("rect")
         .data(fuels)
@@ -345,7 +345,7 @@ function renderScene3() {
     });
     
     
-    const fuels = color.domain();
+    var fuels = color.domain();
 
     legend.selectAll("rect")
         .data(fuels)
