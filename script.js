@@ -102,7 +102,7 @@ function renderScene1() {
       .attr("y", d => y(d[1]));
     
     group.append("text")
-      .attr("x", 150)
+      .attr("x", 50)
       .attr("y", -10)
       .attr("class", "annotation")
       .text("Electric vehicles have the highest average highway MPG");
@@ -134,7 +134,7 @@ function renderScene2() {
 
     var legend = svg.append("g")
         .attr("class", "legend")
-        .attr("transform", `translate(${width - 150}, ${margin.top})`);
+        .attr("transform", `translate(${width}, ${height})`);
     
     var tooltip = d3.select("#tooltip");
     // Creating axes
@@ -222,7 +222,7 @@ function renderScene2() {
         .attr("alignment-baseline", "middle");
     
     group.append("text")
-        .attr("x", 150)
+        .attr("x", 50)
         .attr("y", -10)
         .attr("class", "annotation")
         .text("As the number of Cylinders increases the Average Hwy MPG decreases");
@@ -261,7 +261,7 @@ function renderScene3() {
     
     var legend = svg.append("g")
         .attr("class", "legend")
-        .attr("transform", `translate(${width - 150}, ${margin.top})`);
+        .attr("transform", `translate(${width}, ${height})`);
     
     var tooltip = d3.select("#tooltip");
 
@@ -372,7 +372,7 @@ function renderScene3() {
         .attr("alignment-baseline", "middle");
     
     group.append("text")
-    .attr("x", 150)
+    .attr("x", 50)
     .attr("y", -10)
     .attr("class", "annotation")
     .text("Electric Cars typically have higher MPG's");
