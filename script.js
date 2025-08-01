@@ -212,7 +212,7 @@ function renderScene2() {
         .enter()
         .append("text")
         .attr("x", 30)
-        .attr("y", (d, i) => i * 25 - 15)
+        .attr("y", (d, i) => i * 25 + 15)
         .text(d => d)
         .attr("font-size", "14px")
         .attr("alignment-baseline", "middle");
@@ -362,7 +362,7 @@ function renderScene3() {
         .enter()
         .append("text")
         .attr("x", 30)
-        .attr("y", (d, i) => i * 25 - 15)
+        .attr("y", (d, i) => i * 25 + 15)
         .text(d => d)
         .attr("font-size", "14px")
         .attr("alignment-baseline", "middle");
