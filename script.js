@@ -203,8 +203,8 @@ function renderScene2() {
         .append("rect")
         .attr("x", 0)
         .attr("y", (d, i) => i * 25)
-        .attr("width", 20)
-        .attr("height", 20)
+        .attr("width", 10)
+        .attr("height", 10)
         .attr("fill", d => color(d));
     
     legend.selectAll("text")
@@ -212,7 +212,7 @@ function renderScene2() {
         .enter()
         .append("text")
         .attr("x", 30)
-        .attr("y", (d, i) => i * 25 + 15)
+        .attr("y", (d, i) => i * 25)
         .text(d => d)
         .attr("font-size", "14px")
         .attr("alignment-baseline", "middle");
@@ -254,6 +254,11 @@ function renderScene3() {
         .domain(["Gasoline", "Diesel", "Electricity"])
         .range(["#1f77b4", "#ff7f0e", "#2ca02c"]);
 
+    
+    var legend = svg.append("g")
+        .attr("class", "legend")
+        .attr("transform", `translate(${width - 150}, ${margin.top})`);
+    
     var tooltip = d3.select("#tooltip");
 
     // Creating axes
@@ -338,6 +343,29 @@ function renderScene3() {
     select.on("change", function() {
         updateScatter(this.value);
     });
+    
+    
+    const fuels = color.domain();
+
+    legend.selectAll("rect")
+        .data(fuels)
+        .enter()
+        .append("rect")
+        .attr("x", 0)
+        .attr("y", (d, i) => i * 25)
+        .attr("width", 10)
+        .attr("height", 10)
+        .attr("fill", d => color(d));
+    
+    legend.selectAll("text")
+        .data(fuels)
+        .enter()
+        .append("text")
+        .attr("x", 30)
+        .attr("y", (d, i) => i * 25)
+        .text(d => d)
+        .attr("font-size", "14px")
+        .attr("alignment-baseline", "middle");
     
     group.append("text")
     .attr("x", 150)
