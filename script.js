@@ -202,7 +202,7 @@ function renderScene2() {
         .enter()
         .append("rect")
         .attr("x", 0)
-        .attr("y", (d, i) => i * 25)
+        .attr("y", (d, i) => i * 25 + 5)
         .attr("width", 15)
         .attr("height", 15)
         .attr("fill", d => color(d));
@@ -352,7 +352,7 @@ function renderScene3() {
         .enter()
         .append("rect")
         .attr("x", 0)
-        .attr("y", (d, i) => i * 25)
+        .attr("y", (d, i) => i * 25 + 5)
         .attr("width", 15)
         .attr("height", 15)
         .attr("fill", d => color(d));
