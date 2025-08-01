@@ -93,12 +93,11 @@ function renderScene1() {
       .attr("x", d => x(d[0]))
       .attr("y", d => y(d[1]))
       .attr("width", x.bandwidth())
-      .attr("height", d => innerHeight - y(d[1]))
       .attr("fill", "steelblue")
       .transition()
       .duration(1000)
-      .delay(200);
-
+      .delay(200)
+      .attr("height", d => innerHeight - y(d[1]));
     
     group.append("text")
       .attr("x", 150)
@@ -121,12 +120,11 @@ function renderScene2() {
     var x = d3.scaleLinear()
         .domain(d3.extent(state.data, d => d.EngineCylinders))
         .range([0, innerWidth])
-        //.nice();
   
     var y = d3.scaleLinear()
         .domain(d3.extent(state.data, d => d.AverageHighwayMPG))
         .range([innerHeight, 0])
-        //.nice();
+        
     
     var color = d3.scaleOrdinal()
         .domain(["Gasoline", "Diesel", "Electricity"])
@@ -247,12 +245,12 @@ function renderScene3() {
     var x = d3.scaleLinear()
         .domain(d3.extent(state.data, d => d.AverageHighwayMPG))
         .range([0, innerWidth])
-        //.nice();
+        
   
     var y = d3.scaleLinear()
         .domain(d3.extent(state.data, d => d.AverageCityMPG))
         .range([innerHeight, 0])
-        //.nice();
+        
     
     var color = d3.scaleOrdinal()
         .domain(["Gasoline", "Diesel", "Electricity"])
