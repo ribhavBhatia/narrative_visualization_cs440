@@ -203,8 +203,8 @@ function renderScene2() {
         .append("rect")
         .attr("x", 0)
         .attr("y", (d, i) => i * 25)
-        .attr("width", 10)
-        .attr("height", 10)
+        .attr("width", 15)
+        .attr("height", 15)
         .attr("fill", d => color(d));
     
     legend.selectAll("text")
@@ -212,7 +212,7 @@ function renderScene2() {
         .enter()
         .append("text")
         .attr("x", 30)
-        .attr("y", (d, i) => i * 25)
+        .attr("y", (d, i) => i * 25 - 15)
         .text(d => d)
         .attr("font-size", "14px")
         .attr("alignment-baseline", "middle");
@@ -353,8 +353,8 @@ function renderScene3() {
         .append("rect")
         .attr("x", 0)
         .attr("y", (d, i) => i * 25)
-        .attr("width", 10)
-        .attr("height", 10)
+        .attr("width", 15)
+        .attr("height", 15)
         .attr("fill", d => color(d));
     
     legend.selectAll("text")
@@ -362,7 +362,7 @@ function renderScene3() {
         .enter()
         .append("text")
         .attr("x", 30)
-        .attr("y", (d, i) => i * 25)
+        .attr("y", (d, i) => i * 25 - 15)
         .text(d => d)
         .attr("font-size", "14px")
         .attr("alignment-baseline", "middle");
