@@ -107,15 +107,15 @@ function renderScene1() {
 
 function renderScene2() {
     console.log("Rendering Scene 2...");
-    svg.selectAll("*").remove(); // clear SVG
+    svg.selectAll("*").remove(); 
 
-    d3.select("#scene-title").text("MPG vs Engine Cylinders"); // update title
+    d3.select("#scene-title").text("Hwy MPG vs Engine Cylinders"); 
 
     var group = svg.append("g")
         .attr("transform", "translate("+80+","+50+")");
     
     var x = d3.scaleLinear()
-        .domain(d3.extent(state.data, d => d.AverageCityMPG))
+        .domain(d3.extent(state.data, d => d.EngineCylinders))
         .range([0, innerWidth])
         .nice();
   
@@ -152,14 +152,14 @@ function renderScene2() {
         .attr("y", innerHeight + 40)
         .attr("text-anchor", "middle")
         .attr("class", "axis-label")
-        .text("Average City MPG");
+        .text("Engine Cylinders");
 
     // The circles for the Scatter Plot
     group.selectAll("circle")
         .data(state.data)
         .enter()
         .append("circle")
-        .attr("cx", d => x(d.AverageCityMPG))
+        .attr("cx", d => x(d.EngineCylinders))
         .attr("fill", d => color(d.Fuel))
         .attr("opacity", 0.7)
         .attr("stroke", "black")               
@@ -195,7 +195,7 @@ function renderScene2() {
         .attr("x", 150)
         .attr("y", -10)
         .attr("class", "annotation")
-        .text("Electric Cars typically have higher MPG's");
+        .text("As the number of Cylinders increases the City MPG decreases");
 
 
 }
@@ -205,7 +205,7 @@ function renderScene2() {
 function renderScene3() {
 
     console.log("Rendering Scene 3...");
-    svg.selectAll("*").remove(); // clear SVG
+    svg.selectAll("*").remove();
 
     d3.select("#scene-title").text("City MPG vs Engine Cylinders by Make");
 
@@ -215,7 +215,7 @@ function renderScene3() {
         .attr("transform", "translate("+80+","+50+")");
     
     var x = d3.scaleLinear()
-        .domain(d3.extent(state.data, d => d.EngineCylinders))
+        .domain(d3.extent(state.data, d => d.AverageHighwayMPG))
         .range([0, innerWidth])
         .nice();
   
@@ -253,7 +253,7 @@ function renderScene3() {
         .attr("y", innerHeight + 40)
         .attr("text-anchor", "middle")
         .attr("class", "axis-label")
-        .text("Engine Cylinders");
+        .text("Average Hwy MPG");
 
     var makes = Array.from(new Set(state.data.map(d => d.Make))).sort();
     var select = d3.select("#make-select");
@@ -271,7 +271,7 @@ function renderScene3() {
         create.exit().remove()
         create.enter()
             .append("circle")
-            .attr("cx", d => x(d.EngineCylinders))
+            .attr("cx", d => x(d.AverageHighwayMPG))
             .attr("fill", d => color(d.Fuel))
             .attr("opacity", 0.7)
             .attr("stroke", "black")               
@@ -317,7 +317,9 @@ function renderScene3() {
     .attr("x", 150)
     .attr("y", -10)
     .attr("class", "annotation")
-    .text("As the number of Cylinders increases the City MPG decreases");
+    .text("Electric Cars typically have higher MPG's");
+
+    
 
 }
 
@@ -327,7 +329,7 @@ window.addEventListener("DOMContentLoaded", () => {
       state.scene += 1;
   
       if (state.scene === 2) renderScene2();
-      else if (state.scene === 3) renderScene3(); // if you have this later
+      else if (state.scene === 3) renderScene3();
       else console.log("Scene", state.scene);
     });
 
