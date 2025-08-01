@@ -56,7 +56,7 @@ function renderScene1() {
   
     var y = d3.scaleLinear()
       .domain([0, d3.max(values)])
-      .nice()                   //used to round up the axis numbers
+      //.nice()                   //used to round up the axis numbers
       .range([innerHeight, 0]);
   
     
@@ -94,8 +94,12 @@ function renderScene1() {
       .attr("y", d => y(d[1]))
       .attr("width", x.bandwidth())
       .attr("height", d => innerHeight - y(d[1]))
-      .attr("fill", "steelblue");
-  
+      .attr("fill", "steelblue")
+      .transition()
+      .duration(1000)
+      .delay(200);
+
+    
     group.append("text")
       .attr("x", 150)
       .attr("y", -10)
@@ -117,12 +121,12 @@ function renderScene2() {
     var x = d3.scaleLinear()
         .domain(d3.extent(state.data, d => d.EngineCylinders))
         .range([0, innerWidth])
-        .nice();
+        //.nice();
   
     var y = d3.scaleLinear()
         .domain(d3.extent(state.data, d => d.AverageHighwayMPG))
         .range([innerHeight, 0])
-        .nice();
+        //.nice();
     
     var color = d3.scaleOrdinal()
         .domain(["Gasoline", "Diesel", "Electricity"])
@@ -243,12 +247,12 @@ function renderScene3() {
     var x = d3.scaleLinear()
         .domain(d3.extent(state.data, d => d.AverageHighwayMPG))
         .range([0, innerWidth])
-        .nice();
+        //.nice();
   
     var y = d3.scaleLinear()
         .domain(d3.extent(state.data, d => d.AverageCityMPG))
         .range([innerHeight, 0])
-        .nice();
+        //.nice();
     
     var color = d3.scaleOrdinal()
         .domain(["Gasoline", "Diesel", "Electricity"])
